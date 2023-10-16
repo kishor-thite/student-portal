@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+    {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+<body>
+<div class="container">
+    <form method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{dataget.name}}" placeholder="Enter name">
+  </div>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" id="email" name="email" value="{{dataget.email}}" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="program">Roll NO::</label>
+    <input type="text" class="form-control" id="program" name="roll" value="{{dataget.roll_number}}" placeholder="Enter RollNO">
+  </div>
+  <div class="form-group">
+    <label for="admission_date">Section::</label>
+    <input type="text" class="form-control" id="admission_date" value="{{dataget.section}}" placeholder="Enter Section" name="section">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+    <br>
+
+    <table class="table">
+  <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Student Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Roll No</th>
+        <th scope="col">Section</th>
+        <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in data %}
+    <tr>
+        <td scope="row">{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.roll_number}}</td>
+            <td>{{i.section}}</td>
+            <td><a href="{% url 'update' i.id %}"><button class="btn btn-success">Update</button></a>
+            <a href="{% url 'delete' i.id %}"><button class="btn btn-danger">Delete</button></a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+</body>
+</html>
